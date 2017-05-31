@@ -17,6 +17,8 @@
 #include "idle_lua_ev.c"
 #include "child_lua_ev.c"
 #include "stat_lua_ev.c"
+#include "check_lua_ev.c"
+#include "prepare_lua_ev.c"
 
 static const luaL_Reg R[] = {
     {"version", version},
@@ -63,6 +65,12 @@ LUALIB_API int luaopen_ev(lua_State *L) {
 
     luaopen_ev_stat(L);
     lua_setfield(L, -2, "Stat");
+
+    luaopen_ev_stat(L);
+    lua_setfield(L, -2, "Check");
+
+    luaopen_ev_stat(L);
+    lua_setfield(L, -2, "Prepare");
 
 #define EV_SETCONST(state, prefix, C) \
     lua_pushnumber(L, prefix ## C); \

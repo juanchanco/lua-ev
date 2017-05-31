@@ -40,6 +40,8 @@
 #define IDLE_MT    "ev{idle}"
 #define CHILD_MT   "ev{child}"
 #define STAT_MT    "ev{stat}"
+#define CHECK_MT    "ev{check}"
+#define PREPARE_MT    "ev{prepare}"
 
 /**
  * Special token to represent the uninitialized default loop.  This is
@@ -91,6 +93,12 @@
 
 #define check_stat(L, narg)                                      \
     ((struct ev_stat*)     luaL_checkudata((L), (narg), STAT_MT))
+
+#define check_check(L, narg)                                        \
+    ((struct ev_check*)       luaL_checkudata((L), (narg), CHECK_MT))
+
+#define check_prepare(L, narg)                                        \
+    ((struct ev_prepare*)       luaL_checkudata((L), (narg), PREPARE_MT))
 
 
 /**
@@ -211,3 +219,24 @@ static int               stat_stop(lua_State *L);
 static int               stat_start(lua_State *L);
 static int               stat_start(lua_State *L);
 static int               stat_getdata(lua_State *L);
+
+/**
+ * Check functions:
+ */
+static int               luaopen_ev_check(lua_State *L);
+static int               create_check_mt(lua_State *L);
+static int               check_new(lua_State* L);
+static void              check_cb(struct ev_loop* loop, ev_check* check, int revents);
+static int               check_stop(lua_State *L);
+static int               check_start(lua_State *L);
+
+/**
+ * prepare functions:
+ */
+static int               luaopen_ev_prepare(lua_State *L);
+static int               create_prepare_mt(lua_State *L);
+static int               prepare_new(lua_State* L);
+static void              prepare_cb(struct ev_loop* loop, ev_prepare* prepare, int revents);
+static int               prepare_stop(lua_State *L);
+static int               prepare_start(lua_State *L);
+
