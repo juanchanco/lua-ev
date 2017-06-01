@@ -229,6 +229,7 @@ static int               check_new(lua_State* L);
 static void              check_cb(struct ev_loop* loop, ev_check* check, int revents);
 static int               check_stop(lua_State *L);
 static int               check_start(lua_State *L);
+static int               check_invoke(lua_State *L);
 
 /**
  * prepare functions:

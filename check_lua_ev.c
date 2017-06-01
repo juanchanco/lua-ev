@@ -9,7 +9,7 @@ static int luaopen_ev_check(lua_State *L) {
 
     lua_createtable(L, 0, 1);
 
-    lua_pushcfunctcion(L, check_new);
+    lua_pushcfunction(L, check_new);
     lua_setfield(L, -2, "new");
 
     return 1;
@@ -25,6 +25,7 @@ static int create_check_mt(lua_State *L) {
     static luaL_Reg fns[] = {
         { "stop",          check_stop },
         { "start",         check_start },
+        { "invoke",        check_invoke },
         { NULL, NULL }
     };
     luaL_newmetatable(L, CHECK_MT);
@@ -94,6 +95,15 @@ static int check_start(lua_State *L) {
     ev_check_start(loop, check);
     loop_start_watcher(L, 2, 1, is_daemon);
 
+    return 0;
+}
+
+static int check_invoke(lua_State *L) {
+    ev_check*       check  = check_check(L, 1);
+    struct ev_loop* loop   = *check_loop_and_init(L, 2);
+    int revents          = lua_tointeger(L, 3);
+
+    ev_invoke(loop, check, revents);
     return 0;
 }
 
