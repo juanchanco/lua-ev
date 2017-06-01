@@ -25,6 +25,7 @@ static int create_prepare_mt(lua_State *L) {
     static luaL_Reg fns[] = {
         { "stop",          prepare_stop },
         { "start",         prepare_start },
+        { "invoke",        check_invoke },
         { NULL, NULL }
     };
     luaL_newmetatable(L, PREPARE_MT);
@@ -94,6 +95,15 @@ static int prepare_start(lua_State *L) {
     ev_prepare_start(loop, prepare);
     loop_start_watcher(L, 2, 1, is_daemon);
 
+    return 0;
+}
+
+static int prepare_invoke(lua_State *L) {
+    ev_prepare*       prepare  = check_prepare(L, 1);
+    struct ev_loop* loop   = *check_loop_and_init(L, 2);
+    int revents          = lua_tointeger(L, 3);
+
+    ev_invoke(loop, prepare, revents);
     return 0;
 }
 

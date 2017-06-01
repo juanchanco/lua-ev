@@ -104,6 +104,7 @@ static int check_invoke(lua_State *L) {
     int revents          = lua_tointeger(L, 3);
 
     ev_invoke(loop, check, revents);
+
     return 0;
 }
 

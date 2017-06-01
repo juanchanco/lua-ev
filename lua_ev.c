@@ -66,10 +66,10 @@ LUALIB_API int luaopen_ev(lua_State *L) {
     luaopen_ev_stat(L);
     lua_setfield(L, -2, "Stat");
 
-    luaopen_ev_stat(L);
+    luaopen_ev_check(L);
     lua_setfield(L, -2, "Check");
 
-    luaopen_ev_stat(L);
+    luaopen_ev_prepare(L);
     lua_setfield(L, -2, "Prepare");
 
 #define EV_SETCONST(state, prefix, C) \

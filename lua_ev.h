@@ -240,4 +240,5 @@ static int               prepare_new(lua_State* L);
 static void              prepare_cb(struct ev_loop* loop, ev_prepare* prepare, int revents);
 static int               prepare_stop(lua_State *L);
 static int               prepare_start(lua_State *L);
+static int               prepare_invoke(lua_State *L);
 
