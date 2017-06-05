@@ -17,8 +17,15 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 # Find libev
-  FIND_LIBRARY (LIBEV_LIBRARY NAMES ev)
+  FIND_LIBRARY (LIBEV_LIBRARY
+    NAMES ev libev
+    HINTS
+      ENV EV_DIR
+    PATH_SUFFIXES lib/ev lib
+  )
   FIND_PATH (LIBEV_INCLUDE_DIR ev.h
+    HINTS
+      ENV EVDIR
     PATH_SUFFIXES include/ev include
     ) # Find header
   INCLUDE(FindPackageHandleStandardArgs)
