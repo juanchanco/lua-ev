@@ -37,9 +37,7 @@ static int create_check_mt(lua_State *L) {
 
 /**
  * Create a new check object.  Arguments:
- *   1 - callback functcheckn.
- *   2 - fd (file descriptor number)
- *   3 - READ | WRITE (what operatcheckn to watch)
+ *   1 - callback function.
  *
  * @see watcher_new()
  *
