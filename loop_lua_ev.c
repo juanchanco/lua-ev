@@ -36,6 +36,7 @@ static int create_loop_mt(lua_State *L) {
         { "unloop",     loop_unloop },
         { "backend",    loop_backend },
         { "fork",       loop_fork },
+        { "set_state",  loop_set_state },
         { "__gc",       loop_delete },
         { NULL, NULL }
     };
@@ -298,5 +299,11 @@ static int loop_fork(lua_State *L) {
         ev_loop_fork(loop);
     }
 
+    return 0;
+}
+
+static int loop_set_state(lua_State *L) {
+    struct ev_loop *loop = *check_loop_and_init(L, 1);
+    ev_set_userdata(loop, L);
     return 0;
 }
