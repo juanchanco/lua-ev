@@ -98,6 +98,12 @@ static int loop_new(lua_State *L) {
         lua_tointeger(L, 1) : EVFLAG_AUTO;
 
     *loop_r = ev_loop_new(flags);
+    /**
+     * set the lua_State for the uloop. this get's done
+     * in loop:loop, but if you call anything before that (eg invoke)
+     * the lua_State will be null.
+     */
+    ev_set_userdata(*loop_r, L);
 
     register_obj(L, -1, *loop_r);
 

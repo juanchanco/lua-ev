@@ -126,6 +126,13 @@ LUALIB_API int luaopen_ev(lua_State *L) {
 
 #undef EV_SETCONST
 
+    /**
+     * set the lua_State for the default loop. this get's done
+     * in loop:loop, but if you call anything before that (eg invoke)
+     * the lua_State will be null.
+     */
+    struct ev_loop *loop = ev_default_loop(0);
+    ev_set_userdata(loop, L);
     return 1;
 }
 
